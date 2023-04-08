@@ -9,35 +9,36 @@ function makePlace(interaction, placeName, categoryId, userId) {
 			{
 				name: placeName,
 				type: ChannelType.GuildText,
-				parent: categoryId }) // then set tempID to the id of the created channel
-		.then(channel => {
-			tempID = channel.id;
-			console.log(tempID);
-			// add created place to json file
-			const places = require('../places.json');
-			places[placeName] = {
-				'owner': userId,
-				'category': categoryId,
-				'placeName': placeName,
-				'placeID': tempID,
-			};
-			fs.writeFile('./places.json', JSON.stringify(places), (err) => {
-				if (err) {
-					console.error(err);
+				parent: categoryId
+			}) // then set tempID to the id of the created channel
+			.then(channel => {
+				tempID = channel.id;
+				console.log(tempID);
+				// add created place to json file
+				const places = require('../storage/places.json');
+				places[placeName] = {
+					'owner': userId,
+					'category': categoryId,
+					'placeName': placeName,
+					'placeID': tempID,
+				};
+				fs.writeFile('./places.json', JSON.stringify(places), (err) => {
+					if (err) {
+						console.error(err);
+					}
 				}
-			}
-		);
-			interaction.reply('Place created!');
-		})
+				);
+				interaction.reply('Place created!');
+			})
 
 			.catch(console.error);
-	
+
 
 	} catch (error) {
 		console.error(error);
 		interaction.reply('Something went wrong!');
 	}
-	
+
 }
 
 module.exports = {
@@ -54,16 +55,16 @@ module.exports = {
 	async execute(interaction) {
 
 		const placeName = interaction.options.getString('placename');
-		if(placeName.length > 100) {
+		if (placeName.length > 100) {
 			await interaction.reply('Place name too long!');
 			return;
-		} else if(placeName.length < 2) {
-			
+		} else if (placeName.length < 2) {
+
 			await interaction.reply('Place name too short!');
 		} else {
 			//check if the user has a place already in the json file
 			const fs = require('fs');
-			const places = require('../places.json');
+			const places = require('../storage/places.json');
 			const userId = interaction.user.id;
 			//check if userId is equal to interaction.user.id
 			for (const [key, value] of Object.entries(places)) {
