@@ -1,25 +1,27 @@
 {
-  "name": "warden",
-  "main": "index.js",
-  "dependencies": {
-    "@discordjs/voice": "^0.13.0",
-    "bufferutil": "^4.0.7",
-    "chai": "^4.3.7",
-    "discord": "^0.8.2",
-    "discord.js": "^14.6.0",
-    "dotenv": "^16.0.3",
-    "erlpack": "github:discord/erlpack",
-    "mocha": "^10.2.0",
-    "select-random-file": "^1.2.2",
-    "sqlite3": "^5.1.4",
-    "utf-8-validate": "^6.0.3",
-    "zlib-sync": "^0.1.7"
-  },
-  "devDependencies": {
-    "eslint": "^8.25.0"
-  },
-  "scripts": {
-    "bot": "node .",
-    "deploy-commands": "node deploy-commands.js"
-  }
+	"name": "warden",
+	"version": "2.0",
+	"main": "index.js",
+	"license": "MIT",
+	"dependencies": {
+		"chooksie": "^2.4.1",
+		"discord.js": "^14.9.0",
+		"sqlite3": "^5.1.6"
+	},
+	"devDependencies": {
+		"@chookscord/cli": "^2.4.1",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.2.1",
+		"prettier": "2.8.7"
+	},
+	"scripts": {
+		"start": "node dist",
+		"dev": "chooks",
+		"build": "chooks build",
+		"register": "chooks register",
+		"prepare": "husky install"
+	},
+	"lint-staged": {
+		"**/*": "prettier --write --ignore-unknown"
+	}
 }
